@@ -17,6 +17,17 @@ The prompt `.md` files and `keyword_taxonomy.txt` are the canonical copies at th
 
 ## Build (developers)
 
+One-shot from the repo root — installs deps, builds, packs, and reveals the `.mcpb`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\install-desktop.ps1   # Windows
+bash scripts/install-desktop.sh                                        # macOS / Linux
+```
+
+Then install it via **Settings → Extensions → Advanced settings → Install Extension**.
+
+Or step by step:
+
 ```bash
 cd mcpb
 npm install

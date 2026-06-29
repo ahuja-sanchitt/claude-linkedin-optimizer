@@ -18,16 +18,7 @@ The methodology is five strong prompts. The problem: most people won't hunt them
 
 > **Heads-up:** this is an open-source community extension, not signed by a verified publisher, so Claude Desktop will warn it's "from an unidentified developer." That's expected for any independent extension — the full source is in this repo, so you can review it (or build it yourself) before installing.
 
-**Prefer to build from source?** See [`mcpb/README.md`](mcpb/README.md), or run the helper below — it builds the bundle and reveals the `.mcpb` file, which you then install via the **Settings → Extensions** steps above:
-
-```powershell
-# Windows
-powershell -ExecutionPolicy Bypass -File scripts\install-desktop.ps1
-```
-```bash
-# macOS / Linux
-bash scripts/install-desktop.sh
-```
+*Want to customize the prompts and build the extension yourself? See [`mcpb/README.md`](mcpb/README.md).*
 
 ## Use
 
