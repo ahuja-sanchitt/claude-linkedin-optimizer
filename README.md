@@ -46,9 +46,10 @@ A Node/TypeScript build is packaged as a [`.mcpb`](https://github.com/modelconte
 
 **Download and install:**
 1. Grab `linkedin-optimizer.mcpb` from the [latest release](https://github.com/ahuja-sanchitt/claude-linkedin-optimizer/releases/latest).
-2. In Claude Desktop, go to **Settings → Extensions → Install Extension…** and select the downloaded file.
+2. In Claude Desktop, open **Settings → Extensions** (under the "Desktop app" section), then click **Advanced settings**. This opens the Developer page — you'll see a "Developer Tools Warning," which is expected for installing a local extension.
+3. Click **Install Extension**, then select the downloaded `.mcpb` file.
 
-*(Double-clicking the `.mcpb` also works **if** your system has associated it with Claude Desktop — but the Settings → Extensions route always works, so use that if double-click just offers you Notepad/your editor.)*
+*(Double-clicking the `.mcpb` may also work if your system has associated it with Claude Desktop — but it often just offers Notepad/your editor instead, so the Settings route above is the reliable one.)*
 
 > **Heads-up:** this is an open-source community extension, not signed by a verified publisher, so Claude Desktop will warn it's "from an unidentified developer." That's expected for any independent extension — the full source is in this repo, so you can review it (or build it yourself) before clicking through to install.
 
