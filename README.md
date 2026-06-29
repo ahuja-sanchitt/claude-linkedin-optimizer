@@ -44,9 +44,15 @@ Then pick your client:
 
 A Node/TypeScript build is packaged as a [`.mcpb`](https://github.com/modelcontextprotocol/mcpb) bundle that installs in one click, with **no Python and nothing to configure** (Claude Desktop ships a Node runtime). It runs locally, so your profile never leaves your machine.
 
-**If you have the `.mcpb` file:** double-click `mcpb/linkedin-optimizer.mcpb`, or in Claude Desktop go to **Settings → Extensions → Install Extension…** and select it.
+**Download and install:**
+1. Grab `linkedin-optimizer.mcpb` from the [latest release](https://github.com/ahuja-sanchitt/claude-linkedin-optimizer/releases/latest).
+2. In Claude Desktop, go to **Settings → Extensions → Install Extension…** and select the downloaded file.
 
-**Building from source:** run the helper, which builds the bundle and opens the installer for you (Claude Desktop confirms the install in a dialog — that step is intentionally not silent):
+*(Double-clicking the `.mcpb` also works **if** your system has associated it with Claude Desktop — but the Settings → Extensions route always works, so use that if double-click just offers you Notepad/your editor.)*
+
+> **Heads-up:** this is an open-source community extension, not signed by a verified publisher, so Claude Desktop will warn it's "from an unidentified developer." That's expected for any independent extension — the full source is in this repo, so you can review it (or build it yourself) before clicking through to install.
+
+**Building from source instead:** run the helper, which builds the bundle and opens the installer for you (Claude Desktop confirms the install in a dialog — that step is intentionally not silent):
 
 ```powershell
 # Windows
