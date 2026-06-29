@@ -1,9 +1,9 @@
-# Builds the LinkedIn Optimizer extension and launches the Claude Desktop installer.
+# Builds the LinkedIn Optimizer extension and reveals the .mcpb to install.
 # Usage:  powershell -ExecutionPolicy Bypass -File scripts\install-desktop.ps1
 #
-# Note: Claude Desktop installs .mcpb extensions through a confirmation dialog by
-# design, so this can't be fully silent -- it builds the bundle, then opens it so
-# the app's "Install" dialog appears. Click Install, then start a new chat.
+# Claude Desktop installs .mcpb extensions from its own UI, so the final step is
+# manual on purpose: this builds the bundle and opens Explorer with the file
+# selected, then tells you where to load it.
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 $mcpbDir = Join-Path $root "mcpb"
@@ -19,9 +19,13 @@ Pop-Location
 $mcpb = Join-Path $mcpbDir "linkedin-optimizer.mcpb"
 if (-not (Test-Path $mcpb)) { throw "Pack failed: $mcpb not found." }
 
-Write-Host "==> Opening the installer in Claude Desktop..."
-Start-Process $mcpb
+# Reveal the file in Explorer (reliable, unlike opening the .mcpb directly,
+# which only works if .mcpb is associated with Claude Desktop).
+Start-Process explorer.exe "/select,`"$mcpb`""
 
 Write-Host ""
-Write-Host "When Claude Desktop shows the install dialog, click Install."
-Write-Host "Then open a NEW chat and the LinkedIn Optimizer tools are available."
+Write-Host "Built: $mcpb"
+Write-Host ""
+Write-Host "To install in Claude Desktop:"
+Write-Host "  Settings > Extensions (Desktop app) > Advanced settings > Install Extension"
+Write-Host "  then select the file above. Start a new chat afterward."
