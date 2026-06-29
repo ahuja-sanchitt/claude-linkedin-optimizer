@@ -29,7 +29,16 @@ The methodology is five strong prompts. The problem: most people won't hunt them
 
 ## Install
 
-Two ways to run it, depending on your client:
+First, get the code (needed for the Claude Code path and for building the Desktop extension from source):
+
+```bash
+git clone https://github.com/ahuja-sanchitt/claude-linkedin-optimizer.git
+cd claude-linkedin-optimizer
+```
+
+> Just want the Desktop extension and not the source? Grab the prebuilt `linkedin-optimizer.mcpb` from the repo's **Releases** page instead and skip straight to the install step below — no clone needed.
+
+Then pick your client:
 
 ### Claude Desktop app — one-click extension (recommended)
 
