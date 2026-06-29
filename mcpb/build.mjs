@@ -3,9 +3,9 @@
  *   1. Bundle src/index.ts (+ all deps) into a single build/index.js via esbuild.
  *   2. Copy the manifest and the shared prompts/ + resources/ in alongside it.
  *
- * The canonical prompts/ and resources/ live at the repo root and are shared with
- * the Python server; we copy them in at build time so the bundle is self-contained
- * without duplicating them in git. Then: `mcpb pack build linkedin-optimizer.mcpb`.
+ * The canonical prompts/ and resources/ live at the repo root; we copy them in at
+ * build time so the bundle is self-contained without duplicating them in git.
+ * Then: `mcpb pack build linkedin-optimizer.mcpb`.
  */
 import { build } from "esbuild";
 import { cpSync, mkdirSync, rmSync, copyFileSync } from "node:fs";

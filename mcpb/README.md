@@ -1,23 +1,19 @@
 # LinkedIn Optimizer — Claude Desktop extension (`.mcpb`)
 
-A Node/TypeScript port of the server, packaged as a one-click [MCP Bundle](https://github.com/modelcontextprotocol/mcpb) (`.mcpb`) for the **Claude Desktop app**. Claude Desktop bundles a Node runtime, so this installs and runs with **no Python and no dependencies** to set up — unlike a Python server, which Desktop can't run out of the box.
+A Node/TypeScript MCP server, packaged as a one-click [MCP Bundle](https://github.com/modelcontextprotocol/mcpb) (`.mcpb`) for the **Claude Desktop app**. Claude Desktop bundles a Node runtime, so this installs and runs with **no Python and no dependencies** to set up.
 
-It runs **locally**, so it reads your LinkedIn PDF/DOCX straight off your disk (a remote connector can't).
+It runs **locally**, so it can read your LinkedIn PDF/DOCX off your disk (a remote connector can't) — though in normal use you just attach the file in chat.
 
 ## Install (end users)
 
-1. Download `linkedin-optimizer.mcpb`.
-2. Claude Desktop → **Settings → Extensions → Install Extension…** (or just double-click the file).
-3. Confirm. Then in a chat, run the `optimize_linkedin` prompt, give it the path to your LinkedIn PDF export, and paste 3–5 target job descriptions.
+See the [main README](../README.md#install): download `linkedin-optimizer.mcpb` from the latest release, then in Claude Desktop go to **Settings → Extensions → Advanced settings → Install Extension** and select it.
 
 ## What it exposes
-
-Identical behavior to the Python server (`../server.py`):
 
 - **Tools:** `parse_profile`, `parse_jds`, `keyword_gap`, `lint_headline`, `lint_bullet`
 - **Prompts:** `diagnostic`, `rewrite_headline_about`, `rewrite_experience`, `design_featured_skills`, `content_plan`, `optimize_linkedin`
 
-The prompt `.md` files and `keyword_taxonomy.txt` are the canonical copies at the repo root, shared with the Python server and copied into the bundle at build time (no duplication in git).
+The prompt `.md` files and `keyword_taxonomy.txt` are the canonical copies at the repo root, copied into the bundle at build time (no duplication in git).
 
 ## Build (developers)
 

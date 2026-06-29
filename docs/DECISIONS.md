@@ -20,6 +20,8 @@ if a decision is reversed, add a new entry and mark the old one
 
 **Reason:** The target audience already connects MCP servers, and a one-line installer (`claude mcp add`) collapses the setup objection. It keeps all logic local (no hosting, no per-run API bill) and showcases real backend + AI engineering.
 
+**Superseded in part by D-006:** the Claude Code / Python target is dropped; the "ship as a local MCP server" principle still holds (now via the Claude Desktop `.mcpb` extension).
+
 ---
 
 ## D-002 — MCP "prompts" carry the methodology; "tools" do only the deterministic work
@@ -83,3 +85,19 @@ if a decision is reversed, add a new entry and mark the old one
 - **Steer the model via descriptions/orchestrator (chosen)** — update `parse_profile`/`parse_jds` descriptions and the orchestrator STEP 1/2 wording to "use attached/pasted text directly; only call the parser for a real path." Zero code-logic change; the deterministic value (keyword_gap, linters operate on passed-in text) is unaffected.
 
 **Reason:** The behavior steering lives in tool descriptions and the prompt, so the cheapest correct fix is to rewrite those. `parse_profile` stays useful for the path case (Claude Code CLI, power users) without derailing the common attach flow. Applied identically to `server.py` and `mcpb/src/index.ts`.
+
+---
+
+## D-006 — Drop the Claude Code / Python path; ship Claude Desktop only
+
+**Phase:** Post-launch focus
+
+**Decision:** Remove the Python server (`server.py`), its install scripts (`scripts/install.{ps1,sh}`), and Python packaging (`pyproject.toml`, `requirements.txt`). Ship and maintain only the Claude Desktop `.mcpb` extension.
+
+**Context:** The audience goal is "anyone optimizing their LinkedIn," not developers. In real testing, the Claude Desktop app is the surface a normal person actually uses; the Claude Code / Python path required Python + a CLI and reached almost no one in the target audience. Keeping two implementations in parity (D-004) was ongoing overhead for a path nobody in the audience would take.
+
+**Options considered:**
+- **Keep both** — maximal reach on paper, but doubles maintenance and complicates the README with a dev-only path that distracts from the one-click story.
+- **Desktop only (chosen)** — one well-polished path. The Node extension already carries the full methodology and deterministic tools, installs with no Python, and reads the user's attached profile.
+
+**Reason:** One excellent one-click path beats two half-maintained ones. Simplifies the repo and the README around the experience a real user has. The shared `prompts/` and `resources/` stay (the extension uses them). Per this log's append-only rule, prior entries are preserved: D-002 (prompts vs deterministic tools), D-003 (taxonomy), D-004 (Node `.mcpb`), and D-005 (attach default) still stand and now describe the *only* implementation; D-001's Claude Code framing is marked superseded above.
