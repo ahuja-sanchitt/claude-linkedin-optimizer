@@ -31,10 +31,13 @@ def _load_prompt(name: str) -> str:
 
 @mcp.tool()
 def parse_profile(file_path: str) -> str:
-    """Extract text from a LinkedIn profile export or resume (.pdf or .docx).
+    """Extract text from a profile/resume that exists ON DISK (.pdf or .docx),
+    given its file PATH.
 
-    Pass the absolute path to the file the user uploaded. Returns the raw text
-    so the model can structure it.
+    IMPORTANT: If the user ATTACHED or pasted their profile, you already have the
+    text in the conversation -- use that directly and do NOT call this tool. An
+    attached file is not exposed to this tool as a path, so calling it will fail.
+    Use this tool only when you were given an actual filesystem path.
     """
     path = Path(file_path).expanduser()
     if not path.exists():
@@ -56,8 +59,9 @@ def parse_profile(file_path: str) -> str:
 
 @mcp.tool()
 def parse_jds(text_or_path: str) -> str:
-    """Return job-description text. Accepts raw pasted text, or a path to a
-    .txt/.docx/.pdf file containing one or more job descriptions."""
+    """Return job-description text. Pass the pasted JD text directly if you have
+    it (the common case). Only pass a path when the user gave you a path to a
+    .txt/.docx/.pdf file on disk; attached files are not exposed here as paths."""
     candidate = Path(text_or_path.strip()).expanduser()
     if len(text_or_path) < 400 and candidate.exists():
         if candidate.suffix.lower() in {".pdf", ".docx"}:
@@ -133,7 +137,7 @@ def lint_bullet(text: str) -> str:
 # ---------------------------------------------------------------------------
 
 @mcp.prompt()
-def diagnostic(target_companies: str = "top-tier tech companies") -> str:
+def diagnostic(target_companies: str = "Stripe, OpenAI, Anthropic") -> str:
     """Brutally honest recruiter diagnostic of the profile vs the JDs."""
     return _load_prompt("diagnostic").replace("{{TARGET_COMPANIES}}", target_companies)
 
@@ -164,7 +168,7 @@ def content_plan() -> str:
 
 @mcp.prompt()
 def optimize_linkedin(profile_path: str, jds: str,
-                      target_companies: str = "top-tier tech companies") -> str:
+                      target_companies: str = "Stripe, OpenAI, Anthropic") -> str:
     """One-shot orchestrator: parse the profile + JDs, then run all five stages."""
     stages = "\n\n---\n\n".join(
         _load_prompt(n) for n in
@@ -172,12 +176,15 @@ def optimize_linkedin(profile_path: str, jds: str,
          "design_featured_skills", "content_plan"]
     ).replace("{{TARGET_COMPANIES}}", target_companies)
     return (
-        "You are optimizing a LinkedIn profile end to end. Be a brutally honest "
-        "senior tech recruiter; quote the user's real lines back to them.\n\n"
-        f"STEP 1 - Call the `parse_profile` tool with file_path = `{profile_path}`.\n"
-        f"STEP 2 - Call `parse_jds` with these job descriptions:\n{jds}\n\n"
+        "You are my friend and a brutally honest senior tech recruiter, optimizing "
+        "my LinkedIn profile end to end. Quote my real lines back to me.\n\n"
+        "STEP 1 - Get my profile text. If I attached or pasted it, use that text "
+        f"directly. ONLY if I gave you a filesystem path (`{profile_path}`) should "
+        "you call `parse_profile` with it.\n"
+        "STEP 2 - Get the JD text the same way: use what I pasted/attached directly; "
+        f"call `parse_jds` only for a path to a JD file.\n{jds}\n\n"
         "STEP 3 - Work through the five stages below IN ORDER. Pause after each "
-        "stage so the user can react and request changes before you continue.\n\n"
+        "stage so I can react and request changes before you continue.\n\n"
         f"{stages}"
     )
 

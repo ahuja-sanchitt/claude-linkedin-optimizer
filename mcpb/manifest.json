@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "linkedin-optimizer",
   "display_name": "LinkedIn Optimizer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Turn expert recruiter prompts into a one-command LinkedIn profile optimizer.",
   "long_description": "Upload your LinkedIn profile (PDF/DOCX export) and a few target job descriptions, and Claude runs a full optimization: an honest recruiter-style diagnostic, then rewrites of your headline, About, experience bullets, Featured section, Skills, and a 4-week content plan. The model does the rewriting; this extension does the deterministic parts: parsing your local file, counting which keywords appear across the JDs, and validating character limits and banned words.",
   "author": {

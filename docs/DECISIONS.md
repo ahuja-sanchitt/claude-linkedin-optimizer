@@ -64,3 +64,22 @@ if a decision is reversed, add a new entry and mark the old one
 - **Port to Node/TypeScript `.mcpb` (chosen)** — truly one-click and zero-dependency for end users, since Desktop runs Node out of the box. Anthropic's recommended path for Desktop extensions. Cost: a second implementation to keep in parity.
 
 **Reason:** It's the only option that is both local (can read the user's PDF) and genuinely one-click. Parity risk is contained by sharing the prompt/resource files and keeping the tool/prompt logic small and deterministic. PDF parsing uses `unpdf` (modern pdf.js) after `pdf-parse`'s 2016-era pdf.js failed on a valid test PDF (`bad XRef entry`); DOCX uses `mammoth`. Both are pure JS and bundle cleanly via esbuild.
+
+---
+
+## D-005 — Treat an attached/pasted profile as the default input; `parse_profile` is the path-only fallback
+
+**Phase:** Usage testing (Claude Desktop app)
+
+**Decision:** Reframe `parse_profile` / `parse_jds` and the `optimize_linkedin` orchestrator so the model uses profile/JD text the user **attached or pasted** directly, and calls `parse_profile` **only when given a real filesystem path**.
+
+**Context:** First live test in the Claude Desktop app. The user attached the PDF via the chat's file button (the obvious affordance). The Desktop app gives the model the file's *contents* but not a disk *path*, so when the model dutifully called `parse_profile` it failed ("couldn't reach that path") and mis-narrated the tool as "sandboxed." It recovered by analyzing the attached text, but the detour was confusing.
+
+**Key insight:** In the Desktop app, virtually everyone will **attach** the file rather than type a path. The original tool descriptions told the model to call `parse_profile` first, which is exactly backwards for that surface.
+
+**Options considered:**
+- **Make the MCP tool read the attachment** — not possible; Claude Desktop does not expose attached files to MCP tools as paths.
+- **Leave it; the fallback works** — functional but produces a confusing failed tool call and a wrong "sandbox" explanation every run.
+- **Steer the model via descriptions/orchestrator (chosen)** — update `parse_profile`/`parse_jds` descriptions and the orchestrator STEP 1/2 wording to "use attached/pasted text directly; only call the parser for a real path." Zero code-logic change; the deterministic value (keyword_gap, linters operate on passed-in text) is unaffected.
+
+**Reason:** The behavior steering lives in tool descriptions and the prompt, so the cheapest correct fix is to rewrite those. `parse_profile` stays useful for the path case (Claude Code CLI, power users) without derailing the common attach flow. Applied identically to `server.py` and `mcpb/src/index.ts`.
