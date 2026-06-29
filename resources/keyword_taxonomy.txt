@@ -1,0 +1,73 @@
+# One keyword or phrase per line. keyword_gap counts how many JDs contain each
+# term and flags those present in N+ JDs but missing from the profile.
+# Add or trim terms to fit the roles you target.
+Python
+Java
+Go
+TypeScript
+JavaScript
+FastAPI
+Django
+Flask
+Node.js
+microservices
+distributed systems
+system design
+low-level design
+data structures
+algorithms
+object-oriented
+RAG
+retrieval-augmented generation
+vector database
+embeddings
+chunking
+prompt engineering
+LangChain
+LangGraph
+LangSmith
+Langfuse
+LlamaIndex
+Semantic Kernel
+agentic
+AI agents
+multi-agent
+LLM
+large language models
+fine-tuning
+observability
+monitoring
+alerting
+reliability
+latency
+cost
+evaluation
+Kafka
+event-driven
+streaming
+message queue
+Kubernetes
+Docker
+containerization
+SQL
+NoSQL
+PostgreSQL
+MySQL
+MongoDB
+Redis
+AWS
+GCP
+Azure
+cloud-native
+CI/CD
+REST API
+GraphQL
+gRPC
+MLOps
+LLMOps
+fault tolerance
+concurrency
+scalability
+caching
+knowledge graph
+semantic search

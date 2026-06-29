@@ -1,0 +1,21 @@
+{
+  "name": "linkedin-optimizer-mcpb",
+  "version": "0.1.0",
+  "description": "LinkedIn Optimizer MCP server, packaged as a one-click Claude Desktop extension.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node build.mjs",
+    "pack": "npm run build && npx -y @anthropic-ai/mcpb pack build linkedin-optimizer.mcpb",
+    "validate": "npx -y @anthropic-ai/mcpb validate manifest.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "mammoth": "^1.8.0",
+    "unpdf": "^0.12.2",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
+}

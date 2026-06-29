@@ -1,0 +1,35 @@
+{
+  "manifest_version": "0.2",
+  "name": "linkedin-optimizer",
+  "display_name": "LinkedIn Optimizer",
+  "version": "0.1.0",
+  "description": "Turn expert recruiter prompts into a one-command LinkedIn profile optimizer.",
+  "long_description": "Upload your LinkedIn profile (PDF/DOCX export) and a few target job descriptions, and Claude runs a full optimization: an honest recruiter-style diagnostic, then rewrites of your headline, About, experience bullets, Featured section, Skills, and a 4-week content plan. The model does the rewriting; this extension does the deterministic parts: parsing your local file, counting which keywords appear across the JDs, and validating character limits and banned words.",
+  "author": {
+    "name": "Sanchit"
+  },
+  "license": "MIT",
+  "keywords": ["linkedin", "career", "recruiter", "resume", "job-search"],
+  "server": {
+    "type": "node",
+    "entry_point": "index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/index.js"]
+    }
+  },
+  "tools": [
+    { "name": "parse_profile", "description": "Extract text from a local .pdf or .docx profile/resume." },
+    { "name": "parse_jds", "description": "Return job-description text from pasted text or a file path." },
+    { "name": "keyword_gap", "description": "Find keywords present in N+ JDs but missing from the profile." },
+    { "name": "lint_headline", "description": "Validate a headline: length, banned buzzwords, required keywords." },
+    { "name": "lint_bullet", "description": "Check an experience bullet has a metric and a strong opening verb." }
+  ],
+  "prompts_generated": true,
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}
